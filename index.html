@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Lịch Thời Gian Rảnh Của Nhóm</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 30px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      text-align: center;
+      padding: 8px;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+    .day-title {
+      text-align: left;
+      font-weight: bold;
+      background-color: #ffcccc;
+      padding: 8px;
+      font-size: 18px;
+    }
+    .counter {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+    }
+    .counter button {
+      width: 25px;
+      height: 25px;
+      font-weight: bold;
+    }
+    .time-slot {
+      background-color: #eef;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Lịch Kiểm Soát Thời Gian Rảnh Của Nhóm</h2>
+
+  <script>
+    function increase(id) {
+      const el = document.getElementById(id);
+      el.textContent = parseInt(el.textContent) + 1;
+    }
+
+    function decrease(id) {
+      const el = document.getElementById(id);
+      if (parseInt(el.textContent) > 0) {
+        el.textContent = parseInt(el.textContent) - 1;
+      }
+    }
+
+    const timeSlots = [
+      "8g - 8g30", "8g30 - 9g", "9g - 9g30", "9g30 - 10g",
+      "10g15 - 10g45", "10g45 - 11g15", "11g15 - 11g45",
+      "14g - 14g30", "14g30 - 15g", "15g -15g30",
+      "15g30 - 16g", "15g45 - 16g15", "16g15 - 16g45", "16g45 - 17g15"
+    ];
+
+    const days = ["Thứ Hai", "Thứ Ba", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
+
+    let counter = 0;
+
+    days.forEach(day => {
+      document.write(`<div class="day-title">${day}</div>`);
+      document.write('<table>');
+      document.write('<tr><th>Giờ</th><th>Số thành viên rảnh</th></tr>');
+      timeSlots.forEach(slot => {
+        const id = `counter-${day}-${counter}`;
+        document.write(`
+          <tr class="time-slot">
+            <td>${slot}</td>
+            <td>
+              <div class="counter">
+                <button onclick="decrease('${id}')">-</button>
+                <span id="${id}">0</span>
+                <button onclick="increase('${id}')">+</button>
+              </div>
+            </td>
+          </tr>
+        `);
+        counter++;
+      });
+      document.write('</table>');
+    });
+  </script>
+</body>
+</html>
